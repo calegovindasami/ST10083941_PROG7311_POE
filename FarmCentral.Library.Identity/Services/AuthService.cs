@@ -71,7 +71,7 @@ namespace FarmCentral.Library.Identity.Services
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, "Employee");
+                await _userManager.AddToRoleAsync(user, request.Role);
                 return new RegistrationResponse { Id = user.Id };
             }
             else

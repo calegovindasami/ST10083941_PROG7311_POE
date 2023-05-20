@@ -26,5 +26,7 @@ namespace FarmCentral.Library.Shared.Models.Identity
 
         [MaxLength(64)]
         public string? Address { get; set; }
+
+        public string Role { get; set; } = null!;
     }
 }
