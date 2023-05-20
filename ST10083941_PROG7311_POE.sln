@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmCentral.Library.Identity", "FarmCentral.Library.Identity\FarmCentral.Library.Identity.csproj", "{45CCF668-82C5-4378-AC53-F2A6CDC4AA3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmCentral.Library.Identity", "FarmCentral.Library.Identity\FarmCentral.Library.Identity.csproj", "{45CCF668-82C5-4378-AC53-F2A6CDC4AA3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmCentral.Library.Shared", "FarmCentral.Library.Shared\FarmCentral.Library.Shared.csproj", "{8431C637-B0A3-4468-882F-BCDD3B880215}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmCentral.Library.Shared", "FarmCentral.Library.Shared\FarmCentral.Library.Shared.csproj", "{8431C637-B0A3-4468-882F-BCDD3B880215}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmCentral.API.Identity", "FarmCentral.API.Identity\FarmCentral.API.Identity.csproj", "{9334922B-F1BA-4BD5-9B8D-A7F84C0051B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{8431C637-B0A3-4468-882F-BCDD3B880215}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8431C637-B0A3-4468-882F-BCDD3B880215}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8431C637-B0A3-4468-882F-BCDD3B880215}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9334922B-F1BA-4BD5-9B8D-A7F84C0051B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9334922B-F1BA-4BD5-9B8D-A7F84C0051B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9334922B-F1BA-4BD5-9B8D-A7F84C0051B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9334922B-F1BA-4BD5-9B8D-A7F84C0051B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
