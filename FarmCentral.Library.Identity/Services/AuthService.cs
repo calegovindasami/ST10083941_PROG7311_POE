@@ -76,13 +76,9 @@ namespace FarmCentral.Library.Identity.Services
             }
             else
             {
-                string errors = "";
-                foreach (var error in result.Errors)
-                {
-                    errors += $"{error}\n";
-                }
+                var message = string.Join(", ", result.Errors.Select(x => "Code " + x.Code + " Description" + x.Description));
 
-                throw new Exception(errors);
+                throw new Exception(message);
             }
         }
 
