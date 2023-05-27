@@ -1,0 +1,34 @@
+﻿@page "/login"
+@using FarmCentral.Library.Shared.Contracts;
+@using FarmCentral.Library.Shared.Models.Identity;
+@inject ISnackbar Snackbar
+@inject IAuthenticationService authService
+@inject NavigationManager NavigationManager
+
+<EditForm Model="request" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+
+    <MudStack Spacing="2" Justify="Justify.Center">
+            <MudTextField Label="Email" @bind-Value="request.Email" @bind-Text="request.Email" For="@(() => request.Email)"></MudTextField>
+
+
+        <MudTextField InputType="InputType.Password" Label="Password" @bind-Value="request.Password" @bind-Text="request.Password" For="@(() => request.Password)"></MudTextField>
+    </MudStack>
+    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="mt-4">Save</MudButton>
+</EditForm>
+@code {
+    AuthRequest request = new();
+    public string? ErrorMessage { get; set; } = null;
+
+    public async Task OnValidSubmit()
+    {
+        if (await authService.AuthenticateAsync(request.Email, request.Password))
+        {
+            NavigationManager.NavigateTo("fetchdata");
+        }
+        else
+        {
+            Snackbar.Add("Invalid login details.", Severity.Error);
+        }
+    }
+}

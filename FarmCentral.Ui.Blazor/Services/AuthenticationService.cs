@@ -23,9 +23,10 @@ public class AuthenticationService : BaseHttpService, IAuthenticationService
         try
         {
             AuthRequest authRequest = new AuthRequest { Email = email, Password = password };
-            var response = await _httpClient.PostAsJsonAsync("api/login", authRequest);
+            var response = await _httpClient.PostAsJsonAsync("api/Auth/login", authRequest);
             string jsonResult = await response.Content.ReadAsStringAsync();
 
+            
             AuthResponse authResponse = JsonConvert.DeserializeObject<AuthResponse>(jsonResult)!;
 
             if (authResponse.Token == string.Empty)

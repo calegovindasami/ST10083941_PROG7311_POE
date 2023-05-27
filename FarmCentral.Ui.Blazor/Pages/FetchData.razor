@@ -1,6 +1,8 @@
 ﻿@page "/fetchdata"
 @inject HttpClient Http
+@using FarmCentral.Ui.Blazor.Providers;
 @using FarmCentral.Ui.Blazor.Shared
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <AuthorizeView>
     <Authorized>
@@ -18,7 +20,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        var result = await ((CustomAuthenticationStateProvider)(AuthenticationStateProvider)).GetAuthenticationStateAsync();
     }
     public class WeatherForecast
     {

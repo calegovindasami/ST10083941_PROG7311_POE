@@ -86,27 +86,26 @@ namespace FarmCentral.Library.Identity.Services
         
         private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
         {
-            IList<Claim> userClaims = await _userManager.GetClaimsAsync(user);
-            IList<string> userRoles = await _userManager.GetRolesAsync(user);
+            var userClaims = await _userManager.GetClaimsAsync(user);
+            var userRoles = await _userManager.GetRolesAsync(user);
 
-            List<Claim> userRoleClaims = userRoles.Select(r => new Claim(ClaimTypes.Role, r)).ToList();
+            var userRoleClaims = userRoles.Select(r => new Claim(ClaimTypes.Role, r)).ToList();
 
-            IEnumerable<Claim> claims = new[]
+            var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim("address", user.Address!),
                 new Claim("uid", user.Id)
             }
             .Union(userClaims)
             .Union(userRoleClaims);
 
-            SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
+            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
 
-            SigningCredentials signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+            var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
 
-            JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(
+            var jwtSecurityToken = new JwtSecurityToken(
                 issuer: _jwtSettings.Issuer,
                 audience: _jwtSettings.Audience,
                 claims: claims,
