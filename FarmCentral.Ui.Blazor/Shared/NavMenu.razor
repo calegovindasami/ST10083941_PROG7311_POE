@@ -1,5 +1,18 @@
-﻿<MudNavMenu>
+﻿@using FarmCentral.Library.Shared.Contracts;
+@using FarmCentral.Ui.Blazor.Providers;
+@inject IAuthenticationService authService
+<MudNavMenu>
     <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
     <MudNavLink Href="counter" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Counter</MudNavLink>
     <MudNavLink Href="fetchdata" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Fetch data</MudNavLink>
+    <AuthorizeView>
+        <MudNavLink Style="fixed-bottom" Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" OnClick="Logout">Logout</MudNavLink>
+    </AuthorizeView>
 </MudNavMenu>
+
+@code {
+    public async Task Logout()
+    {
+        await authService.Logout();
+    }
+}
