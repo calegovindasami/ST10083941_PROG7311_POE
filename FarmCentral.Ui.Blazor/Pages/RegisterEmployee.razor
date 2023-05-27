@@ -1,0 +1,51 @@
+﻿@page "/register"
+
+@using FarmCentral.Library.Shared.Contracts;
+@using FarmCentral.Library.Shared.Models.Identity;
+@inject ISnackbar Snackbar
+@inject IAuthenticationService authService
+
+
+<EditForm Model="request" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator/>
+
+    <MudStack Spacing="2" Justify="Justify.Center">
+        <MudStack Row="true">
+            <MudTextField Label="First Name" @bind-Value="request.FirstName" @bind-Text="request.FirstName" For="@(() => request.FirstName)"></MudTextField>
+            <MudTextField Label="Last Name" @bind-Value="request.LastName" @bind-Text="request.LastName" For="@(() => request.LastName)"></MudTextField>
+        </MudStack>
+
+        <MudTextField Label="Email Address" @bind-Value="request.Email" @bind-Text="request.Email" For="@(() => request.Email)"></MudTextField>
+        <MudTextField InputType="InputType.Password" Label="Password" @bind-Value="request.Password" @bind-Text="request.Password" For="@(() => request.Password)"></MudTextField>
+    </MudStack>
+
+    @if (ErrorMessage != null)
+    {
+        Snackbar.Add(ErrorMessage, Severity.Warning);
+    }
+    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="mt-4">Save</MudButton>
+    </EditForm>
+
+@code {
+    private RegistrationRequest request = new();
+    public string? ErrorMessage { get; set; } = null;
+    public async Task OnValidSubmit()
+    {
+        request.Role = "Employee";
+        try
+        {
+            var response = await authService.RegisterAsync(request.Email, request.Password, request.FirstName, request.LastName, request.Address);
+            if (response != true)
+            {
+                throw new Exception("Invalid registration.");
+            }
+            Snackbar.Add("Successfully Registered", Severity.Success);
+            StateHasChanged();
+        }
+        catch (Exception ex) 
+        {
+            ErrorMessage = ex.Message;
+            StateHasChanged();
+        }
+    }
+}

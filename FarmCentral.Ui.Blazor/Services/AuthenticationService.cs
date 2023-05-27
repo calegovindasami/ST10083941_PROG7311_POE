@@ -53,7 +53,7 @@ public class AuthenticationService : BaseHttpService, IAuthenticationService
         try
         {
             RegistrationRequest registrationRequest = new() { Email = email, Password = password, FirstName = firstName, LastName = lastName, Role = "Employee" };
-            var response = await _httpClient.PostAsJsonAsync("api/register", registrationRequest);
+            var response = await _httpClient.PostAsJsonAsync("api/Auth/register", registrationRequest);
             string jsonResponse = await response.Content.ReadAsStringAsync();
             var registrationResponse = JsonConvert.DeserializeObject<RegistrationResponse>(jsonResponse)!;
             if (string.IsNullOrEmpty(registrationResponse.Id))
@@ -63,7 +63,7 @@ public class AuthenticationService : BaseHttpService, IAuthenticationService
 
             return true;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             return false;
         }

@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FarmCentral.API.Identity.Controllers
 {
-    public class AuthController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
         public AuthController(IAuthService authService)
