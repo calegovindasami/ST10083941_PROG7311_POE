@@ -12,6 +12,6 @@ namespace FarmCentral.Library.Shared.Models.DTOs
         public string FarmerId { get; set; } = null!;
         public decimal PricePerUnit { get; set; }
         public int Quantity { get; set; }
-        public int ProductId { get; set; }
+        public int ProductName { get; set; }
     }
 }

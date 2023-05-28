@@ -3,10 +3,16 @@
 @inject IAuthenticationService authService
 <MudNavMenu>
     <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
-    <MudNavLink Href="register" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Registration</MudNavLink>
-    <MudNavLink Href="fetchdata" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Fetch data</MudNavLink>
     <AuthorizeView>
-        <MudNavLink Style="fixed-bottom" Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" OnClick="Logout">Logout</MudNavLink>
+        <Authorized >
+            <MudNavLink Style="fixed-bottom" Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" OnClick="Logout">Logout</MudNavLink>
+            <MudNavLink Href="addproduct" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Add Product</MudNavLink>
+        </Authorized>
+        <NotAuthorized>
+            
+            <MudNavLink Href="register" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Registration</MudNavLink>
+            <MudNavLink Href="login" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Login</MudNavLink>
+        </NotAuthorized>
     </AuthorizeView>
 </MudNavMenu>
 

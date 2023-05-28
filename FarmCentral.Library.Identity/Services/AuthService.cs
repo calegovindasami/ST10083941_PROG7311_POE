@@ -109,7 +109,7 @@ namespace FarmCentral.Library.Identity.Services
                 issuer: _jwtSettings.Issuer,
                 audience: _jwtSettings.Audience,
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes),
+                expires: DateTime.Now.AddDays(7),
                 signingCredentials: signingCredentials);
 
             return jwtSecurityToken;

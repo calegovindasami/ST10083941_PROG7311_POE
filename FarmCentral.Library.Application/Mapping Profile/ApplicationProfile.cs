@@ -14,7 +14,9 @@ public class ApplicationProfile : Profile
     public ApplicationProfile()
     {
         CreateMap<Farmer, FarmerDto>().ReverseMap();
-        CreateMap<FarmerProduct, FarmerProductDto>().ReverseMap();
+        CreateMap<FarmerProduct, FarmerProductDto>()
+            .ForMember(s => s.ProductName, d => d.MapFrom(map => map.Product.ProductName))
+            .ReverseMap();
         CreateMap<Product, ProductDto>().ReverseMap();
         CreateMap<OutgoingTransaction, OutgoingTransactionDto>().ReverseMap();
     }

@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmCentral.API.Identity", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmCentral.Ui.Blazor", "FarmCentral.Ui.Blazor\FarmCentral.Ui.Blazor.csproj", "{5F9BBEFD-9680-448E-BE5D-9A97316F7D64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmCentral.Library.Application", "FarmCentral.Library.Application\FarmCentral.Library.Application.csproj", "{9682464E-6C57-4075-BCF2-F829DF1B1081}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmCentral.Library.Application", "FarmCentral.Library.Application\FarmCentral.Library.Application.csproj", "{9682464E-6C57-4075-BCF2-F829DF1B1081}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmCentral.API.Application", "FarmCentral.API.Application\FarmCentral.API.Application.csproj", "{6D7B04ED-53E2-4C00-9DAC-5E3CA471958F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmCentral.API.Application", "FarmCentral.API.Application\FarmCentral.API.Application.csproj", "{6D7B04ED-53E2-4C00-9DAC-5E3CA471958F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

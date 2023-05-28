@@ -49,11 +49,11 @@ public class AuthenticationService : BaseHttpService, IAuthenticationService
         await ((CustomAuthenticationStateProvider)_authStateProvider).LoggedOut();
     }
 
-    public async Task<bool> RegisterAsync(string email, string password, string firstName, string lastName, string? address)
+    public async Task<string?> RegisterAsync(string email, string password, string firstName, string lastName, string? address)
     {
         try
         {
-            RegistrationRequest registrationRequest = new() { Email = email, Password = password, FirstName = firstName, LastName = lastName, Role = "Employee" };
+            RegistrationRequest registrationRequest = new() { Email = email, Password = password, FirstName = firstName, LastName = lastName};
             var response = await _httpClient.PostAsJsonAsync("api/Auth/register", registrationRequest);
             string jsonResponse = await response.Content.ReadAsStringAsync();
             var registrationResponse = JsonConvert.DeserializeObject<RegistrationResponse>(jsonResponse)!;
@@ -62,11 +62,11 @@ public class AuthenticationService : BaseHttpService, IAuthenticationService
                 throw new Exception("Invalid registration");
             }
 
-            return true;
+            return registrationResponse.Id;
         }
         catch (Exception ex)
         {
-            return false;
+            return null;
         }
     }
 }

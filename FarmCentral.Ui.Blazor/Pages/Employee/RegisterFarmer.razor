@@ -1,0 +1,64 @@
+﻿<h3>RegisterFarmer</h3>
+@using FarmCentral.Library.Shared.Contracts;
+@using FarmCentral.Library.Shared.Models.DTOs;
+@using FarmCentral.Library.Shared.Models.Identity;
+@inject ISnackbar Snackbar
+@inject IAuthenticationService authService
+
+
+<MudPaper Width="500px" Class="px-5 py-5 mx-auto">
+    <EditForm Model="request" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <MudText Typo="Typo.h3" Class="mb-4" Style="text-align: center;">Register</MudText>
+        <MudStack Spacing="2" Justify="Justify.Center">
+            <MudStack Row="true">
+                <MudTextField Label="First Name" @bind-Value="request.FirstName" For="@(() => request.FirstName)"></MudTextField>
+                <MudTextField Label="Last Name" @bind-Value="request.LastName"  For="@(() => request.LastName)"></MudTextField>
+            </MudStack>
+
+            <MudTextField Label="Email Address" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Email" @bind-Value="request.Email" For="@(() => request.Email)"></MudTextField>
+            <MudTextField Label="Address" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.House" @bind-Value="request.Address" For="@(() => request.Address)"></MudTextField>
+            <MudDatePicker Label="Basic example" @bind-Date="farmerDto.DateOfBirth"  For="@(() => farmerDto.DateOfBirth)"/>
+            <MudTextField InputType="InputType.Password" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Password" Label="Password" @bind-Value="request.Password" For="@(() => request.Password)"></MudTextField>
+        </MudStack>
+
+        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Style="font-size: 24px" FullWidth="true" Class="mt-4">Submit</MudButton>
+    </EditForm>
+</MudPaper>
+@code {
+    private RegistrationRequest request = new();
+    private FarmerDto farmerDto = new();
+
+    public async Task OnValidSubmit()
+    {
+        farmerDto.FirstName = request.FirstName;
+        farmerDto.LastName = request.LastName;
+        farmerDto.Email = request.Email;
+        farmerDto.Address = request.Address;
+
+
+        request.Role = "Farmer";
+        try
+        {
+            var response = await authService.RegisterAsync(request.Email, request.Password, request.FirstName, request.LastName, request.Address);
+            if (response == null)
+            {
+                throw new Exception("Invalid registration.");
+            }
+            farmerDto.FarmerId = response;
+
+
+            HttpClient client = new();
+            client.BaseAddress = new Uri("");
+            var applicationResponse = await client.PostAsJsonAsync("api/Farmer/post", farmerDto);
+            applicationResponse.EnsureSuccessStatusCode();
+            Snackbar.Add("Successfully Registered", Severity.Success);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            StateHasChanged();
+        }
+    }
+}

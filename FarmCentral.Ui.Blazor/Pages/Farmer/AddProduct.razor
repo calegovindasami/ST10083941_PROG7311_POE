@@ -1,0 +1,49 @@
+﻿@page "/addproduct"
+@using Blazored.LocalStorage;
+@using FarmCentral.Ui.Blazor.Providers
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ILocalStorageService LocalStorage
+@using FarmCentral.Library.Shared.Models.DTOs;
+
+@attribute [Authorize(Roles = "Farmer")]
+        
+<EditForm Model="farmerProduct" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator/>
+    <MudText Typo="Typo.h3" Class="mb-4" Style="text-align: center;">Product</MudText>
+    <MudStack Row="true">
+       <MudTextField Label="Product Name" @bind-Value="farmerProduct.ProductName" For="@(() => farmerProduct.ProductName)"></MudTextField>
+       <MudNumericField Label="Quantity" @bind-Value="farmerProduct.Quantity" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Numbers" For="@(() => farmerProduct.Quantity)" Min="1" Max="100000000"></MudNumericField>
+        <MudNumericField Label="Price Per Unit" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AttachMoney" @bind-Value="farmerProduct.PricePerUnit" Format="F2" For="@(() => farmerProduct.PricePerUnit)" Min="1M" Max="10000000M"></MudNumericField>
+    </MudStack>
+</EditForm>
+
+@code {
+    private FarmerProductDto farmerProduct = new();
+
+    private async Task OnValidSubmit()
+    {
+        HttpClient client = new();
+        client.BaseAddress = new Uri("");
+
+        var result = await client.PostAsJsonAsync("api/FarmerProduct/post", farmerProduct);
+
+        try
+        {
+            result.EnsureSuccessStatusCode();
+        }
+        catch (Exception ex)
+        {
+            
+            throw;
+        }
+    }
+
+    protected async override Task OnInitializedAsync()
+    {
+        var authenticationState = await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).GetAuthenticationStateAsync();
+        var uid = authenticationState.User.Claims.First(x => x.Type == "uid").Value;
+        farmerProduct.FarmerId = uid;
+
+    }
+
+}
