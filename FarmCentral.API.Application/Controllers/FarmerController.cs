@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FarmCentral.API.Application.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class FarmerController : Controller
 {
     private readonly IFarmerRepository _repository;

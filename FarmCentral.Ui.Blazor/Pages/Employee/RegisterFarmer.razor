@@ -1,11 +1,13 @@
-﻿<h3>RegisterFarmer</h3>
+﻿@page "/registerfarmer"
+
+<h3>RegisterFarmer</h3>
 @using FarmCentral.Library.Shared.Contracts;
 @using FarmCentral.Library.Shared.Models.DTOs;
 @using FarmCentral.Library.Shared.Models.Identity;
 @inject ISnackbar Snackbar
 @inject IAuthenticationService authService
 
-
+@attribute [Authorize(Roles = "Employee")]
 <MudPaper Width="500px" Class="px-5 py-5 mx-auto">
     <EditForm Model="request" OnValidSubmit="OnValidSubmit">
         <DataAnnotationsValidator />
@@ -40,7 +42,7 @@
         request.Role = "Farmer";
         try
         {
-            var response = await authService.RegisterAsync(request.Email, request.Password, request.FirstName, request.LastName, request.Address);
+            var response = await authService.RegisterAsync(request);
             if (response == null)
             {
                 throw new Exception("Invalid registration.");
@@ -49,7 +51,7 @@
 
 
             HttpClient client = new();
-            client.BaseAddress = new Uri("");
+            client.BaseAddress = new Uri("https://localhost:7074/");
             var applicationResponse = await client.PostAsJsonAsync("api/Farmer/post", farmerDto);
             applicationResponse.EnsureSuccessStatusCode();
             Snackbar.Add("Successfully Registered", Severity.Success);

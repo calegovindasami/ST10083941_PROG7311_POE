@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FarmCentral.API.Application.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
         private readonly IProductRepository repository;

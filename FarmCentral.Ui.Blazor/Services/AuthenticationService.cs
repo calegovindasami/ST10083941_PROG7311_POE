@@ -49,11 +49,10 @@ public class AuthenticationService : BaseHttpService, IAuthenticationService
         await ((CustomAuthenticationStateProvider)_authStateProvider).LoggedOut();
     }
 
-    public async Task<string?> RegisterAsync(string email, string password, string firstName, string lastName, string? address)
+    public async Task<string?> RegisterAsync(RegistrationRequest registrationRequest)
     {
         try
         {
-            RegistrationRequest registrationRequest = new() { Email = email, Password = password, FirstName = firstName, LastName = lastName};
             var response = await _httpClient.PostAsJsonAsync("api/Auth/register", registrationRequest);
             string jsonResponse = await response.Content.ReadAsStringAsync();
             var registrationResponse = JsonConvert.DeserializeObject<RegistrationResponse>(jsonResponse)!;

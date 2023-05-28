@@ -36,7 +36,7 @@
         request.Role = "Employee";
         try
         {
-            var response = await authService.RegisterAsync(request.Email, request.Password, request.FirstName, request.LastName, request.Address);
+            var response = await authService.RegisterAsync(request);
             if (response == null)
             {
                 throw new Exception("Invalid registration.");

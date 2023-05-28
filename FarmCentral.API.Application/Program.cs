@@ -17,7 +17,11 @@ builder.Services.AddScoped<IFarmerProductRepository, FarmerProductRepository>();
 builder.Services.AddScoped<IOutgoingTransactionRepository, OutgoingTransactionRepository>();
 
 var app = builder.Build();
-
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true) // allow any origin  
+    .AllowCredentials());
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
