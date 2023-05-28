@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FarmCentral.Library.Application\FarmCentral.Library.Application.csproj" />
+  </ItemGroup>
+
 </Project>
