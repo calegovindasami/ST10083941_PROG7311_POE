@@ -8,33 +8,33 @@ namespace FarmCentral.API.Application.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly IProductRepository _productRepository;
-        public ProductController(IProductRepository productRepository)
+        private readonly IProductRepository repository;
+        public ProductController(IProductRepository _repository)
         {
-            _productRepository = productRepository;
+            repository = _repository;
         }
 
         [HttpPost("post")]
         public async Task<ProductDto> Post(ProductDto product)
         {
-            return await _productRepository.CreateAsync(product);
+            return await repository.CreateAsync(product);
         }
         [HttpDelete("delete")]
         public async Task<ProductDto> Delete(ProductDto product)
         {
-            return await _productRepository.DeleteAsync(product);
+            return await repository.DeleteAsync(product);
         }
 
         [HttpGet("get")]
         public async Task<List<ProductDto>> Get()
         {
-            return await _productRepository.GetAsync();
+            return await repository.GetAsync();
         }
 
         [HttpGet("getbyid")]
         public async Task<ProductDto> GetById(int id)
         {
-            return await _productRepository.GetByIdAsync(id);
+            return await repository.GetByIdAsync(id);
         }
     }
 }
