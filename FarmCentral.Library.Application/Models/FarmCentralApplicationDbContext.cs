@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace FarmCentral.Library.Application.Models
 {
-    public partial class farm_central_applicationContext : DbContext
+    public partial class FarmCentralApplicationDbContext : DbContext
     {
-        public farm_central_applicationContext()
+        public FarmCentralApplicationDbContext()
         {
         }
 
-        public farm_central_applicationContext(DbContextOptions<farm_central_applicationContext> options)
+        public FarmCentralApplicationDbContext(DbContextOptions<FarmCentralApplicationDbContext> options)
             : base(options)
         {
         }
