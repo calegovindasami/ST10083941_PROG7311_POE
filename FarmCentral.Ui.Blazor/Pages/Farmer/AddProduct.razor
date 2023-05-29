@@ -45,9 +45,8 @@
         {
             result.EnsureSuccessStatusCode();
             Snackbar.Add("Product has been added.", Severity.Success);
-            await tblProducts!.LoadData();
-            farmerProduct = new();
             StateHasChanged();
+            await tblProducts!.LoadData();
 
         }
         catch (Exception ex)
