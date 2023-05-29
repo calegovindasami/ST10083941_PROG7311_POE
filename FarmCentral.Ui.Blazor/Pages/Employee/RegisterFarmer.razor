@@ -95,7 +95,8 @@
 
     private void OnRowClick(TableRowClickEventArgs<FarmerDto> args)
     {
-        var farmer = $"{args.Item.FarmerId}";
+        var farmerID= $"{args.Item.FarmerId}";
+        NavigationManager.NavigateTo($"/viewfarmer/{farmerID}");
     }
 
     public async Task OnValidSubmit()

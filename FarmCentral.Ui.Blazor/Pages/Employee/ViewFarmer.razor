@@ -1,15 +1,31 @@
-﻿@using FarmCentral.Ui.Blazor.Pages.Shared
+﻿@using FarmCentral.Library.Shared.Models.DTOs;
+@using FarmCentral.Ui.Blazor.Pages.Shared
 @using FarmCentral.Ui.Blazor.Providers;
+@using FarmCentral.Ui.Blazor.Services.Application_Services;
+@using Newtonsoft.Json;
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ISnackbar Snackbar
 @page "/viewfarmer"
 @page "/viewfarmer/{id}"
-<ViewFarmerProducts UserID="@Id"></ViewFarmerProducts>
+@inject NavigationManager NavigationManager
+
+<MudIconButton Icon="@Icons.Material.Filled.ArrowBack" OnClick="GoBack"></MudIconButton>
+<MudStack Style="width:100%;">
+    <MudText Typo="Typo.h4">Farmers Products</MudText>
+    <ViewFarmerProducts UserID="@Id"></ViewFarmerProducts>
+</MudStack>
 
 @code {
     [Parameter]
-    public string Id { get; set; }
+    public string? Id { get; set; }
+    public FarmerDto? Farmer;
     protected async override Task OnParametersSetAsync()
     {
-        var x = Id;
+
+    }
+
+    private void GoBack()
+    {
+        NavigationManager.NavigateTo("/registerfarmer");
     }
 }

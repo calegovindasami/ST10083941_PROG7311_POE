@@ -6,11 +6,20 @@
 
 @attribute [Authorize]
 
-<MudTable Items="FarmerProducts" Striped="true" Style="width: 70%;" Elevation="0">
+<MudTable Items="FarmerProducts" Striped="true" Filter="new Func<FarmerProductDto,bool>(FilterFunc1)" Style="width: 70%;" Elevation="0">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Products</MudText>
         <MudSpacer />
-        <MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        <MudStack Row="true" Spacing="2">
+            <MudDateRangePicker MinDate="DateTime.Today.AddYears(-100)" MaxDate="DateTime.Today" @ref="_picker" Label="Filter by Date" @bind-DateRange="dateRange" DateFormat="dd/MM/yyyy">
+                <PickerActions>
+                    <MudButton Class="mr-auto align-self-start" OnClick="@(() => ClearDates())">Clear</MudButton>
+                    <MudButton OnClick="@(() => _picker.Close(false))">Cancel</MudButton>
+                    <MudButton Color="Color.Primary" OnClick="@(() => FilterByDate())">Ok</MudButton>
+                </PickerActions>
+            </MudDateRangePicker>
+            <MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </MudStack>
     </ToolBarContent>
     <HeaderContent>
         <MudTh>Product Name</MudTh>
@@ -35,11 +44,17 @@
     public string? UserID { get; set; }
     List<FarmerProductDto>? FarmerProducts;
     List<FarmerProductDto>? FilteredFarmerProducts;
-    private string? _searchString;
+    private string? _searchString = "";
+    MudDateRangePicker _picker;
+    private DateRange dateRange;
 
     protected async override Task OnParametersSetAsync()
     {
         await LoadData();
+    }
+
+    private void OnDateRangeChange(DateRange range)
+    {
     }
 
     public async Task LoadData()
@@ -59,6 +74,46 @@
         {
             Snackbar.Add(ex.Message, Severity.Error);
         }
+    }
+
+    public async Task ClearDates()
+    {
+        _picker.Clear();
+        await LoadData();
+    }
+
+    public async Task FilterByDate()
+    {
+        _picker.Close();
+        var startDate = _picker.DateRange.Start;
+        var endDate = _picker.DateRange.End;
+        var filteredProducts = FarmerProducts!.Where(x => x.DateAdded >= startDate & x.DateAdded <= endDate).ToList();
+
+        if (filteredProducts.Count == 0)
+        {
+            Snackbar.Add("No products between those dates", Severity.Warning);
+        }
+        else
+        {
+            FarmerProducts = filteredProducts;
+        }
+        StateHasChanged();
+    }
+
+
+    private bool FilterFunc1(FarmerProductDto product) => FilterFunc(product, _searchString);
+
+    private bool FilterFunc(FarmerProductDto product, string searchString)
+    {
+        if (string.IsNullOrEmpty(searchString))
+        {
+            return true;
+        }
+        if (product.ProductName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+        return false;
     }
 
 }
