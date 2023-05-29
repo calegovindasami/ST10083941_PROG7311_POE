@@ -2,15 +2,15 @@
 @inherits LayoutComponentBase
 @inject IAuthenticationService authService
 @inject NavigationManager NavigationManager
-<MudThemeProvider IsDarkMode="true"/>
+<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
     <MudAppBar Elevation="0">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Primary" Class="ma-4" T="bool" Label="Toggle Dark Mode" />
         <MudSpacer />
-
         <AuthorizeView>
             <Authorized>
                 <MudNavLink Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Logout" Style="width: 100px;" IconColor="Color.Inherit" OnClick="Logout ">Logout</MudNavLink>
@@ -33,6 +33,7 @@
 
 @code {
     bool _drawerOpen = true;
+    private bool _isDarkMode;
 
     void DrawerToggle()
     {
