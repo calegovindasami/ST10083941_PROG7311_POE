@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FarmCentral.Library.Application.Repository;
-
+//Concrete implementation for the farmer repository.
 public class FarmerRepository : IFarmerRepository
 {
     private readonly FarmCentralApplicationDbContext _context;

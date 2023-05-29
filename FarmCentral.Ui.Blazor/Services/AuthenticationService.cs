@@ -18,6 +18,7 @@ public class AuthenticationService : BaseHttpService, IAuthenticationService
         _authStateProvider = authStateProvider;
     }
 
+    //Calls api endpoiint to check if the login was valid.
     public async Task<bool> AuthenticateAsync(string email, string password)
     {
         try
@@ -29,6 +30,7 @@ public class AuthenticationService : BaseHttpService, IAuthenticationService
             
             AuthResponse authResponse = JsonConvert.DeserializeObject<AuthResponse>(jsonResult)!;
 
+            //Checks if token received is empty, if not it is stored locally.
             if (authResponse.Token == string.Empty)
             {
                 throw new Exception("Invalid login details.");
@@ -44,11 +46,13 @@ public class AuthenticationService : BaseHttpService, IAuthenticationService
         }
     }
 
+    //Logs user out
     public async Task Logout()
     {
         await ((CustomAuthenticationStateProvider)_authStateProvider).LoggedOut();
     }
 
+    //Calls the api method responsible for registering user in identity.
     public async Task<string?> RegisterAsync(RegistrationRequest registrationRequest)
     {
         try

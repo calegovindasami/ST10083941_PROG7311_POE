@@ -37,6 +37,7 @@
 @code {
     private RegistrationRequest request = new();
     public string? ErrorMessage { get; set; } = null;
+    //Registers the employee
     public async Task OnValidSubmit()
     {
         request.Role = "Employee";

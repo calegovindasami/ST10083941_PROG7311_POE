@@ -15,6 +15,7 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider
         jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
     }
     
+    //Gets the current authentication state of the user.
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
         var user = new ClaimsPrincipal(new ClaimsIdentity());
@@ -28,6 +29,7 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider
         var savedToken = await _localStorageService.GetItemAsync<string>("token");
         var tokenContent = jwtSecurityTokenHandler.ReadJwtToken(savedToken);
         
+        //Checks if the token has expired.
         if (tokenContent.ValidTo < DateTime.Now) 
         {
             await _localStorageService.RemoveItemAsync("token");
@@ -40,6 +42,7 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider
 
     }
 
+    //Returns authstate with user variable containing the claims.
     public async Task LoggedIn()
     {
         var claims = await GetUserClaims();
@@ -48,6 +51,7 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider
         NotifyAuthenticationStateChanged(authState);
     }
 
+    //Deletes the token to log out the user.
     public async Task LoggedOut()
     {
         await _localStorageService.RemoveItemAsync("token");
@@ -56,6 +60,7 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider
         NotifyAuthenticationStateChanged(authState);
     }
 
+    //Gets the user claims from the stored token.
     private async Task<List<Claim>> GetUserClaims()
     {
         var savedToken = await _localStorageService.GetItemAsync<string>("token");

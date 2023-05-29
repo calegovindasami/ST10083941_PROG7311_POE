@@ -13,6 +13,7 @@ namespace FarmCentral.Library.Identity.Configurations.RoleConfigurations
     {
         public void Configure(EntityTypeBuilder<IdentityRole> builder)
         {
+            //Generates the in database when adding migration.
             builder.HasData
             (
                 new IdentityRole

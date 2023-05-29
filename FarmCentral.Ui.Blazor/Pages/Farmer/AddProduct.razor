@@ -34,6 +34,7 @@
     private FarmerProductDto farmerProduct = new();
     private ViewFarmerProducts? tblProducts;
 
+    //Adds the farmer product to the database.
     private async Task OnValidSubmit()
     {
         HttpClient client = ApplicationClient.GetClient();
@@ -56,8 +57,10 @@
         }
     }
 
+
     protected async override Task OnInitializedAsync()
     {
+        //Gets the uid from the users claims.
         var authenticationState = await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).GetAuthenticationStateAsync();
         var uid = authenticationState.User.Claims.First(x => x.Type == "uid").Value;
         farmerProduct.FarmerId = uid;

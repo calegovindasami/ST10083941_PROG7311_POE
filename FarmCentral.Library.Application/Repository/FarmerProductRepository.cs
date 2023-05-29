@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace FarmCentral.Library.Application.Repository
 {
+    //Concrete implementation for the farmer product repository.
     public class FarmerProductRepository : IFarmerProductRepository
     {
         private readonly FarmCentralApplicationDbContext _context;
@@ -23,6 +24,7 @@ namespace FarmCentral.Library.Application.Repository
 
         public async Task<FarmerProductDto> CreateAsync(FarmerProductDto entity)
         {
+            //Prevents duplicate products from being created within the database.
             FarmerProduct farmerProduct = _mapper.Map<FarmerProduct>(entity);
             var productExists = await _context.Products.FirstOrDefaultAsync(x => x.ProductName == entity.ProductName);
 

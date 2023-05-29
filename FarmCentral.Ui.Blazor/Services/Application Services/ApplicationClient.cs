@@ -2,7 +2,7 @@
 
 public static class ApplicationClient
 {
-
+    //Class used to get an instance of the http client with the corresponding address.
     public static HttpClient GetClient()
     {
         HttpClient client = new HttpClient();

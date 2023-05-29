@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace FarmCentral.Library.Shared.Models.Identity
 {
+    //Auth request model.
     public class AuthRequest
     {
         public string Email { get; set; } = null!;

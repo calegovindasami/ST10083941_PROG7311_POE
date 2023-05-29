@@ -19,8 +19,10 @@ namespace FarmCentral.Library.Identity;
 
 public static class IdentityServicesRegistration
 {
+    //Registers services required for identity.
     public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration configuration)
     {
+        //Gets the strings from the application.json wherever this method is called.
         services
             .Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
 
@@ -34,9 +36,12 @@ public static class IdentityServicesRegistration
             .AddEntityFrameworkStores<FarmCentralIdentityDbContext>()
             .AddDefaultTokenProviders();
 
+        //Injects AuthService
         services.AddTransient<IAuthService, AuthService>();
-        services.AddTransient<IFarmerService, FarmerService>();
+        //services.AddTransient<IFarmerService, FarmerService>();
 
+
+        //Configures authentication to allow JWT
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

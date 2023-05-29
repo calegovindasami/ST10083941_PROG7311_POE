@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FarmCentral.Library.Application.Repository;
 
-
+//Concrete implementation for the product repository.
 public class ProductRepository : IProductRepository
 {
     private readonly FarmCentralApplicationDbContext _context;

@@ -13,6 +13,7 @@ namespace FarmCentral.Library.Application;
 
 public static class ApplicationServiceRegistration
 {
+    //Registers required services for automapper and EF Core.
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());

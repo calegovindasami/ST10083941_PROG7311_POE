@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace FarmCentral.Library.Shared.Identity
 {
+    //Interface for auth service.
     public interface IAuthService
     {
         Task<AuthResponse> Login(AuthRequest request);

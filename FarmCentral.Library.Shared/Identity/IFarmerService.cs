@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace FarmCentral.Library.Shared.Identity
 {
+    //UNUSED
     public interface IFarmerService
     {
         Task<List<Farmer>> GetFarmers();

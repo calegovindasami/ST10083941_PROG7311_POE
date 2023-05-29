@@ -80,6 +80,7 @@
         await LoadData();
     }
 
+    //Loads data into the Farmer list
     private async Task LoadData()
     {
         HttpClient client = ApplicationClient.GetClient();
@@ -98,12 +99,14 @@
         }
     }
 
+    //Allows employee to view farmers products when clicking on row.
     private void OnRowClick(TableRowClickEventArgs<FarmerDto> args)
     {
         var farmerID= $"{args.Item.FarmerId}";
         NavigationManager.NavigateTo($"/viewfarmer/{farmerID}");
     }
 
+    //Registers the farmer in the identity database and the main database.
     public async Task OnValidSubmit()
     {
         farmerDto.FirstName = request.FirstName;

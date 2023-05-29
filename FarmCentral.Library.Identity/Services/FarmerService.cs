@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace FarmCentral.Library.Identity.Services
 {
+    //UNUSED SERVICE.
     public class FarmerService : IFarmerService
     {
 

@@ -56,6 +56,7 @@
     {
     }
 
+    //Loads the db data into the farmer product list.
     public async Task LoadData()
     {
         HttpClient client = ApplicationClient.GetClient();
@@ -75,12 +76,14 @@
         }
     }
 
+    //Clears the daterange picker.
     public async Task ClearDates()
     {
         _picker.Clear();
         await LoadData();
     }
 
+    //Filters the product list by the specified date entered into the date range.
     public async Task FilterByDate()
     {
         _picker.Close();
@@ -100,8 +103,13 @@
     }
 
 
+   
+    //Code Attribution
+    //Author: MudBlazor
+    //Taken from:https://mudblazor.com/components/table#tablepager-customization
     private bool FilterFunc1(FarmerProductDto product) => FilterFunc(product, _searchString);
 
+    //Method to determine if the search string is valid.
     private bool FilterFunc(FarmerProductDto product, string searchString)
     {
         if (string.IsNullOrEmpty(searchString))
@@ -114,5 +122,6 @@
         }
         return false;
     }
+    //End of code attribution.
 
 }

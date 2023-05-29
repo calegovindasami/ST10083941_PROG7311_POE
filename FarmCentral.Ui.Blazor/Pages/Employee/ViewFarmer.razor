@@ -19,11 +19,8 @@
     [Parameter]
     public string? Id { get; set; }
     public FarmerDto? Farmer;
-    protected async override Task OnParametersSetAsync()
-    {
 
-    }
-
+    //Takes user back to farmer registration.
     private void GoBack()
     {
         NavigationManager.NavigateTo("/registerfarmer");

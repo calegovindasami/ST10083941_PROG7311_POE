@@ -13,6 +13,7 @@ public class ApplicationProfile : Profile
 {
     public ApplicationProfile()
     {
+        //Maps all the DTOs to the database models.
         CreateMap<Farmer, FarmerDto>().ReverseMap();
         CreateMap<FarmerProduct, FarmerProductDto>()
             .ForMember(s => s.ProductName, d => d.MapFrom(map => map.Product.ProductName))

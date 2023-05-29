@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace FarmCentral.Library.Shared.Models.Identity
 {
+    //Model for JWT settings.
     public class JwtSettings
     {
         public string Key { get; set; } = null!;

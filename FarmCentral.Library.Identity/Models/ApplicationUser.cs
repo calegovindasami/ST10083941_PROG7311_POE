@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace FarmCentral.Library.Identity.Models
 {
+    //Custom identity class with extra fields.
     public class ApplicationUser : IdentityUser
     {
         public string FirstName { get; set; } = null!;

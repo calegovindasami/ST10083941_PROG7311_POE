@@ -27,6 +27,7 @@ namespace FarmCentral.Library.Identity.Services
         }
         public async Task<AuthResponse> Login(AuthRequest request)
         {
+            //Checks if user exists.
             ApplicationUser? user = await _userManager.FindByEmailAsync(request.Email);
 
             if (user == null)
@@ -34,6 +35,7 @@ namespace FarmCentral.Library.Identity.Services
                 throw new Exception($"User with email: {request.Email} not found.");
             }
 
+            //Attempts sign in
             SignInResult? result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
             if (result.Succeeded == false)
@@ -41,6 +43,7 @@ namespace FarmCentral.Library.Identity.Services
                 throw new Exception($"Sign in credentials for {request.Email} are invalid.");
             }
 
+            //Sends token to reply with in a successful login attempt.
             JwtSecurityToken jwtSecurity = await GenerateToken(user);
 
             AuthResponse response = new AuthResponse
@@ -54,9 +57,10 @@ namespace FarmCentral.Library.Identity.Services
             return response;
         }
 
-
+        //Registers the user in the identity db.
         public async Task<RegistrationResponse> Register(RegistrationRequest request)
         {
+            //Creates user from the registration request.
             ApplicationUser user = new ApplicationUser
             {
                 Email = request.Email,
@@ -83,7 +87,7 @@ namespace FarmCentral.Library.Identity.Services
         }
 
         
-        
+        //Generates the token for login using the users claims.
         private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
         {
             var userClaims = await _userManager.GetClaimsAsync(user);
@@ -91,6 +95,7 @@ namespace FarmCentral.Library.Identity.Services
 
             var userRoleClaims = userRoles.Select(r => new Claim(ClaimTypes.Role, r)).ToList();
 
+            //Creates the entire claim to parse.
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Email),
@@ -101,10 +106,12 @@ namespace FarmCentral.Library.Identity.Services
             .Union(userClaims)
             .Union(userRoleClaims);
 
+            //Generates security key required for the JWT
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
 
             var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
 
+            //Creates JWT with the corresponding values regarding the user.
             var jwtSecurityToken = new JwtSecurityToken(
                 issuer: _jwtSettings.Issuer,
                 audience: _jwtSettings.Audience,

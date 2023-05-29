@@ -22,6 +22,7 @@
     AuthRequest request = new();
     public string? ErrorMessage { get; set; } = null;
 
+    //Authenticates user.
     public async Task OnValidSubmit()
     {
         if (await authService.AuthenticateAsync(request.Email, request.Password))
@@ -30,6 +31,7 @@
         }
         else
         {
+            //Snackbar displays error. I prevented the specific error for the login for security purposes.
             Snackbar.Add("Invalid login details.", Severity.Error);
         }
     }
