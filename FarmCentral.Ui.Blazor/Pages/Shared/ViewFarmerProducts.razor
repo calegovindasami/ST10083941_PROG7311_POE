@@ -6,7 +6,7 @@
 
 @attribute [Authorize]
 
-<MudTable Bordered="true" Items="FarmerProducts" Striped="true" Filter="new Func<FarmerProductDto,bool>(FilterFunc1)" Style="width: 70%;" Elevation="0">
+<MudTable Bordered="true" Items="FarmerProducts" Filter="new Func<FarmerProductDto,bool>(FilterFunc1)" Style="width: 70%;" Elevation="0">
     <ToolBarContent>
         <MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
         <MudSpacer />

@@ -1,6 +1,7 @@
 ﻿@using FarmCentral.Library.Shared.Contracts;
 @inherits LayoutComponentBase
 @inject IAuthenticationService authService
+@inject NavigationManager NavigationManager
 <MudThemeProvider IsDarkMode="true"/>
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -41,5 +42,6 @@
     public async Task Logout()
     {
         await authService.Logout();
+        NavigationManager.NavigateTo("/");
     }
 }
