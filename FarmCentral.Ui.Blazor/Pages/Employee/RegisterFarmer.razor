@@ -10,12 +10,12 @@
 
 @attribute [Authorize(Roles = "Employee")]
 
-    <MudPaper Style="width:100%;" Elevation="0">
+    <MudPaper Outlined="true" Style="width:100%;">
     <MudStack Row="true" Justify="Justify.SpaceAround">
-        <MudPaper Class="px-5 py-5" Style="width: 30%;">
+        <MudPaper Class="px-5 py-5" Style="width: 30%;" Elevation="0">
             <EditForm Model="request" OnValidSubmit="OnValidSubmit">
                 <DataAnnotationsValidator />
-                <MudText Typo="Typo.h3" Class="mb-4" Style="text-align: center;">Register</MudText>
+                <MudText Typo="Typo.h3" Class="mb-4" Style="text-align: center;">Add Farmer</MudText>
                 <MudStack Spacing="2" Justify="Justify.Center">
                     <MudStack Row="true">
                         <MudTextField Label="First Name" @bind-Value="request.FirstName" For="@(() => request.FirstName)"></MudTextField>
@@ -32,7 +32,7 @@
             </EditForm>
         </MudPaper>
 
-        <MudTable Items="@Farmers" Striped="true" Style="width: 70%;">
+        <MudTable Items="@Farmers" Striped="true" Style="width: 70%;" Elevation="0">
             <ToolBarContent>
                 <MudText Typo="Typo.h6">Farmers</MudText>
                 <MudSpacer />

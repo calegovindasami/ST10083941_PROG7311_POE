@@ -8,7 +8,6 @@ namespace FarmCentral.Library.Application.Models
         public Farmer()
         {
             FarmerProducts = new HashSet<FarmerProduct>();
-            OutgoingTransactions = new HashSet<OutgoingTransaction>();
         }
 
         public string FarmerId { get; set; } = null!;
@@ -19,6 +18,5 @@ namespace FarmCentral.Library.Application.Models
         public string Email { get; set; } = null!;
 
         public virtual ICollection<FarmerProduct> FarmerProducts { get; set; }
-        public virtual ICollection<OutgoingTransaction> OutgoingTransactions { get; set; }
     }
 }

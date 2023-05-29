@@ -4,6 +4,7 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject ILocalStorageService LocalStorage
 @using FarmCentral.Library.Shared.Models.DTOs;
+@inject ISnackbar Snackbar
 
 @attribute [Authorize(Roles = "Farmer")]
         
@@ -23,18 +24,19 @@
     private async Task OnValidSubmit()
     {
         HttpClient client = new();
-        client.BaseAddress = new Uri("");
+        client.BaseAddress = new Uri("https://localhost:7074/");
 
         var result = await client.PostAsJsonAsync("api/FarmerProduct/post", farmerProduct);
 
         try
         {
             result.EnsureSuccessStatusCode();
+            Snackbar.Add("Product has been added.", Severity.Success);
         }
         catch (Exception ex)
         {
-            
-            throw;
+
+            Snackbar.Add(ex.Message, Severity.Error);
         }
     }
 

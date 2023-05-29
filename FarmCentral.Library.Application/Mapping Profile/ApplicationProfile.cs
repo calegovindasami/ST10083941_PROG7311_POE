@@ -18,6 +18,5 @@ public class ApplicationProfile : Profile
             .ForMember(s => s.ProductName, d => d.MapFrom(map => map.Product.ProductName))
             .ReverseMap();
         CreateMap<Product, ProductDto>().ReverseMap();
-        CreateMap<OutgoingTransaction, OutgoingTransactionDto>().ReverseMap();
     }
 }
