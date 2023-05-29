@@ -7,22 +7,45 @@
     <MudText Typo="Typo.h4" Class="mt-2 mb-4" Style="font-style: italic;" Align="Align.Center">"Simplify Your Stock Management, Maximize Your Harvest".</MudText>
 
     
-    <MudCard Style="width:500px">
-        <MudCardHeader>
-            <CardHeaderContent>
-                <MudText Typo="Typo.h6">Features:</MudText>
-            </CardHeaderContent>
-        </MudCardHeader>
-        <MudCardContent>
-            <ul>
-                <MudText Typo="Typo.body1">Track incoming and outgoing stock.</MudText>
-                <MudText Typo="Typo.body1">Efficiently manage inventory.</MudText>
-                <MudText Typo="Typo.body1">Allow farmers to enter their stock.</MudText>
-                <MudText Typo="Typo.body1">And more!</MudText>
-            </ul>
-        </MudCardContent>
-        <MudCardActions>
-            <MudButton Variant="Variant.Text" Color="Color.Primary">Read More</MudButton>
-        </MudCardActions>
-    </MudCard>
+<MudStack Row="true" Justify="Justify.Center">
+        <MudTimeline>
+            <MudTimelineItem Color="Color.Info" Size="Size.Small">
+                <ItemOpposite>
+                    <MudText Color="Color.Info" Typo="Typo.h5">2022</MudText>
+                </ItemOpposite>
+                <ItemContent>
+                    <MudText Color="Color.Info" Typo="Typo.h6" GutterBottom="true">Origin</MudText>
+                    <MudText>Opening of the first Farm Central brick and mortar store.</MudText>
+                </ItemContent>
+            </MudTimelineItem>
+            <MudTimelineItem Color="Color.Success" Size="Size.Small">
+                <ItemOpposite>
+                    <MudText Color="Color.Success" Typo="Typo.h5">2023</MudText>
+                </ItemOpposite>
+                <ItemContent>
+                    <MudText Color="Color.Success" Typo="Typo.h6" GutterBottom="true">Functional</MudText>
+                    <MudText>Launch of stock management website.</MudText>
+                </ItemContent>
+            </MudTimelineItem>
+            <MudTimelineItem Color="Color.Error" Size="Size.Small">
+                <ItemOpposite>
+                    <MudText Color="Color.Error" Typo="Typo.h5">2024</MudText>
+                </ItemOpposite>
+                <ItemContent>
+                    <MudText Color="Color.Error" Typo="Typo.h6" GutterBottom="true">Online</MudText>
+                    <MudText>Expanding sales of products through an e-commerce store.</MudText>
+                </ItemContent>
+            </MudTimelineItem>
+
+            <MudTimelineItem Color="Color.Warning" Size="Size.Small">
+                <ItemOpposite>
+                    <MudText Color="Color.Warning" Typo="Typo.h5">2025</MudText>
+                </ItemOpposite>
+                <ItemContent>
+                    <MudText Color="Color.Warning" Typo="Typo.h6" GutterBottom="true">World Domination</MudText>
+                    <MudText>More exciting things on the way!</MudText>
+                </ItemContent>
+            </MudTimelineItem>
+        </MudTimeline>
+</MudStack>
 </MudStack>
