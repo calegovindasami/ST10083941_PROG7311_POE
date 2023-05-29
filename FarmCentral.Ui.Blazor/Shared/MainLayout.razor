@@ -1,5 +1,6 @@
-﻿@inherits LayoutComponentBase
-
+﻿@using FarmCentral.Library.Shared.Contracts;
+@inherits LayoutComponentBase
+@inject IAuthenticationService authService
 <MudThemeProvider/>
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -8,12 +9,18 @@
     <MudAppBar Elevation="0">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Custom.Brands.MudBlazor" Color="Color.Inherit" Link="https://mudblazor.com/" Target="_blank" />
-        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/MudBlazor/MudBlazor/" Target="_blank" />
-    </MudAppBar>
+        <MudNavLink Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Logout" Style="width: 100px;" IconColor="Color.Inherit" OnClick="Logout ">Logout</MudNavLink>
+
+        <AuthorizeView>
+            <Authorized>
+
+            </Authorized>
+        </AuthorizeView>
+
+        </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
         <MudDrawerHeader>
-            <MudText Typo="Typo.h6">FarmCentral.Ui.Blazor</MudText>
+            <MudText Typo="Typo.h6">FarmCentral</MudText>
         </MudDrawerHeader>
         <NavMenu />
     </MudDrawer>
@@ -30,5 +37,10 @@
     void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
+    }
+
+    public async Task Logout()
+    {
+        await authService.Logout();
     }
 }

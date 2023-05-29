@@ -3,16 +3,23 @@
 @inject IAuthenticationService authService
 <MudNavMenu>
     <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
-    <AuthorizeView>
+    <AuthorizeView Roles="Employee">
         <Authorized >
-            <MudNavLink Style="fixed-bottom" Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" OnClick="Logout">Logout</MudNavLink>
-            <MudNavLink Href="addproduct" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Add Product</MudNavLink>
-            <MudNavLink Href="registerfarmer" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Register Farmer</MudNavLink>
+            <MudNavLink Href="registerfarmer" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.PersonAdd">Register Farmer</MudNavLink>
         </Authorized>
+    </AuthorizeView>
+
+    <AuthorizeView Roles="Farmer">
+        <Authorized>
+            <MudNavLink Href="addproduct" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AddShoppingCart">Add Product</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
+
+    <AuthorizeView>
         <NotAuthorized>
-            
-            <MudNavLink Href="register" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Registration</MudNavLink>
-            <MudNavLink Href="login" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Login</MudNavLink>
+
+            <MudNavLink Href="register" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AppRegistration">Registration</MudNavLink>
+            <MudNavLink Href="login" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Login">Login</MudNavLink>
         </NotAuthorized>
     </AuthorizeView>
 </MudNavMenu>
