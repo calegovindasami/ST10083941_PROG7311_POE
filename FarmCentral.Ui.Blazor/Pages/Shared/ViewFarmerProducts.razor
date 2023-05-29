@@ -6,9 +6,9 @@
 
 @attribute [Authorize]
 
-<MudTable Items="FarmerProducts" Striped="true" Filter="new Func<FarmerProductDto,bool>(FilterFunc1)" Style="width: 70%;" Elevation="0">
+<MudTable Bordered="true" Items="FarmerProducts" Striped="true" Filter="new Func<FarmerProductDto,bool>(FilterFunc1)" Style="width: 70%;" Elevation="0">
     <ToolBarContent>
-        <MudText Typo="Typo.h6">Products</MudText>
+        <MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
         <MudSpacer />
         <MudStack Row="true" Spacing="2">
             <MudDateRangePicker MinDate="DateTime.Today.AddYears(-100)" MaxDate="DateTime.Today" @ref="_picker" Label="Filter by Date" @bind-DateRange="dateRange" DateFormat="dd/MM/yyyy">
@@ -18,7 +18,6 @@
                     <MudButton Color="Color.Primary" OnClick="@(() => FilterByDate())">Ok</MudButton>
                 </PickerActions>
             </MudDateRangePicker>
-            <MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
         </MudStack>
     </ToolBarContent>
     <HeaderContent>
