@@ -86,8 +86,11 @@ namespace FarmCentral.Library.Identity.Services
             }
         }
 
-        
+
         //Generates the token for login using the users claims.
+        //Code Attribution
+        //Author: Trevoir Williams
+        //Link: https://www.udemy.com/course/aspnet-core-solid-and-clean-architecture-net-5-and-up/
         private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
         {
             var userClaims = await _userManager.GetClaimsAsync(user);
@@ -121,5 +124,6 @@ namespace FarmCentral.Library.Identity.Services
 
             return jwtSecurityToken;
         }
+        //End of code attribution.
     }
 }
