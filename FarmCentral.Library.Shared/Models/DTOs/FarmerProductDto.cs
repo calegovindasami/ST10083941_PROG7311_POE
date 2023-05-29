@@ -13,5 +13,6 @@ namespace FarmCentral.Library.Shared.Models.DTOs
         public decimal PricePerUnit { get; set; }
         public int Quantity { get; set; }
         public int ProductName { get; set; }
+        public DateTime? DateAdded { get; set; }
     }
 }

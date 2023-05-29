@@ -1,5 +1,63 @@
-﻿<h3>ViewFarmerProducts</h3>
+﻿@using FarmCentral.Library.Shared.Models.DTOs;
+@using FarmCentral.Ui.Blazor.Services.Application_Services;
+@using Newtonsoft.Json;
+@inject ISnackbar Snackbar
+
+@attribute [Authorize]
+
+<MudTable Items="FarmerProducts" Striped="true" Style="width: 70%;" Elevation="0">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Products</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Product Name</MudTh>
+        <MudTh>Quantity</MudTh>
+        <MudTh>Price per Unit</MudTh>
+        <MudTh>Transaction Date</MudTh>
+    </HeaderContent>
+
+    <RowTemplate>
+        <MudTd DataLabel="Product Name">@context.ProductName</MudTd>
+        <MudTd DataLabel="Quantity">@context.Quantity</MudTd>
+        <MudTd DataLabel="Price per Unit">@context.PricePerUnit</MudTd>
+        <MudTd DataLabel="Transaction Date">@context.DateAdded</MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
 
 @code {
+    [Parameter]
+    public string? UserID { get; set; }
+    List<FarmerProductDto>? FarmerProducts;
+    List<FarmerProductDto>? FilteredFarmerProducts;
+    private string? _searchString;
+
+    protected async override Task OnParametersSetAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        HttpClient client = ApplicationClient.GetClient();
+        var response =await client.GetAsync("api/FarmerProduct/get");
+
+        try
+        {
+            response.EnsureSuccessStatusCode();
+            string json = await response.Content.ReadAsStringAsync();
+            FarmerProducts = JsonConvert.DeserializeObject<List<FarmerProductDto>>(json)!;
+            FarmerProducts = FarmerProducts.Where(x => x.FarmerId == UserID).ToList();
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+        }
+    }
 
 }
