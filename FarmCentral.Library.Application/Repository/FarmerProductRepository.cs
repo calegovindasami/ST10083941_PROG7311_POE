@@ -24,6 +24,13 @@ namespace FarmCentral.Library.Application.Repository
         public async Task<FarmerProductDto> CreateAsync(FarmerProductDto entity)
         {
             FarmerProduct farmerProduct = _mapper.Map<FarmerProduct>(entity);
+            var productExists = await _context.Products.FirstOrDefaultAsync(x => x.ProductName == entity.ProductName);
+
+            if (productExists != null)
+            {
+                farmerProduct.ProductId = productExists.ProductId;
+                farmerProduct.Product = productExists;
+            }
             _context.FarmerProducts.Add(farmerProduct);
             await _context.SaveChangesAsync();
             return entity;
@@ -39,6 +46,7 @@ namespace FarmCentral.Library.Application.Repository
 
         public async Task<List<FarmerProductDto>> GetAsync()
         {
+            var f = await _context.FarmerProducts.Include(x => x.Product).ToListAsync();
             List<FarmerProductDto> farmerProducts = _mapper
             .Map<List<FarmerProductDto>>
             (await _context.FarmerProducts.ToListAsync());

@@ -1,6 +1,7 @@
 ﻿@using FarmCentral.Library.Shared.Models.DTOs;
 @using FarmCentral.Ui.Blazor.Services.Application_Services;
 @using Newtonsoft.Json;
+@using System.Globalization;
 @inject ISnackbar Snackbar
 
 @attribute [Authorize]
@@ -21,8 +22,8 @@
     <RowTemplate>
         <MudTd DataLabel="Product Name">@context.ProductName</MudTd>
         <MudTd DataLabel="Quantity">@context.Quantity</MudTd>
-        <MudTd DataLabel="Price per Unit">@context.PricePerUnit</MudTd>
-        <MudTd DataLabel="Transaction Date">@context.DateAdded</MudTd>
+        <MudTd DataLabel="Price per Unit">@context.PricePerUnit.ToString("C2", CultureInfo.CurrentCulture)</MudTd>
+        <MudTd DataLabel="Transaction Date">@context.DateAdded!.Value.ToShortDateString()</MudTd>
     </RowTemplate>
     <PagerContent>
         <MudTablePager />

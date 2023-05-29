@@ -43,6 +43,7 @@
         {
             result.EnsureSuccessStatusCode();
             Snackbar.Add("Product has been added.", Severity.Success);
+            StateHasChanged();
         }
         catch (Exception ex)
         {
