@@ -32,7 +32,7 @@
 
 @code {
     private FarmerProductDto farmerProduct = new();
-    private ViewFarmerProducts tblProducts;
+    private ViewFarmerProducts? tblProducts;
 
     private async Task OnValidSubmit()
     {
@@ -45,7 +45,7 @@
             result.EnsureSuccessStatusCode();
             Snackbar.Add("Product has been added.", Severity.Success);
             StateHasChanged();
-            await tblProducts.LoadData();
+            await tblProducts!.LoadData();
         }
         catch (Exception ex)
         {

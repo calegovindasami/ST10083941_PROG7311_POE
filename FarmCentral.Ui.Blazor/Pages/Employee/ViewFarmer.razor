@@ -1,0 +1,15 @@
+﻿@using FarmCentral.Ui.Blazor.Pages.Shared
+@using FarmCentral.Ui.Blazor.Providers;
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@page "/viewfarmer"
+@page "/viewfarmer/{id}"
+<ViewFarmerProducts UserID="@Id"></ViewFarmerProducts>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    protected async override Task OnParametersSetAsync()
+    {
+        var x = Id;
+    }
+}
