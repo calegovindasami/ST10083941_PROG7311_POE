@@ -1,7 +1,7 @@
 ﻿@using FarmCentral.Library.Shared.Contracts;
 @inherits LayoutComponentBase
 @inject IAuthenticationService authService
-<MudThemeProvider/>
+<MudThemeProvider IsDarkMode="true"/>
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -9,11 +9,10 @@
     <MudAppBar Elevation="0">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudSpacer />
-        <MudNavLink Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Logout" Style="width: 100px;" IconColor="Color.Inherit" OnClick="Logout ">Logout</MudNavLink>
 
         <AuthorizeView>
             <Authorized>
-
+                <MudNavLink Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Logout" Style="width: 100px;" IconColor="Color.Inherit" OnClick="Logout ">Logout</MudNavLink>
             </Authorized>
         </AuthorizeView>
 

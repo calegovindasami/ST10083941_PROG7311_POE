@@ -2,6 +2,27 @@
 
 <PageTitle>Index</PageTitle>
 
-<MudText Typo="Typo.h3" GutterBottom="true">Hello, world!</MudText>
-<MudText Class="mb-8">Welcome to your new app, powered by MudBlazor!</MudText>
-<MudAlert Severity="Severity.Normal">You can find documentation and examples on our website here: <MudLink Href="https://mudblazor.com" Typo="Typo.body2" Color="Color.Inherit"><b>www.mudblazor.com</b></MudLink></MudAlert>
+<MudStack>
+    <MudText Typo="Typo.h1" Align="Align.Center">Welcome to Farm Central</MudText>
+    <MudText Typo="Typo.h4" Class="mt-2 mb-4" Style="font-style: italic;" Align="Align.Center">"Simplify Your Stock Management, Maximize Your Harvest".</MudText>
+
+    
+    <MudCard Style="width:500px">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">Features:</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <ul>
+                <MudText Typo="Typo.body1">Track incoming and outgoing stock.</MudText>
+                <MudText Typo="Typo.body1">Efficiently manage inventory.</MudText>
+                <MudText Typo="Typo.body1">Allow farmers to enter their stock.</MudText>
+                <MudText Typo="Typo.body1">And more!</MudText>
+            </ul>
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Variant="Variant.Text" Color="Color.Primary">Read More</MudButton>
+        </MudCardActions>
+    </MudCard>
+</MudStack>

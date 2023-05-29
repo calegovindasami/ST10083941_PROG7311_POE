@@ -4,7 +4,7 @@
 @using FarmCentral.Library.Shared.Models.Identity;
 @inject ISnackbar Snackbar
 @inject IAuthenticationService authService
-
+@inject NavigationManager NavigationManager
 
 <MudPaper Width="500px" Class="px-5 py-5 mx-auto">
     <EditForm Model="request" OnValidSubmit="OnValidSubmit">
@@ -26,7 +26,13 @@
         }
         <MudButton ButtonType="ButtonType.Submit"  Variant="Variant.Filled" Color="Color.Primary" Style="font-size: 24px" FullWidth="true" Class="mt-4">Submit</MudButton>
     </EditForm>
+    <MudAlert Class="mt-2" Severity="Severity.Normal" Variant="Variant.Outlined">Passwords must contain:
+        an uppercase letter, 
+        a number 
+        and a special symbol.</MudAlert>
 </MudPaper>
+
+
 
 @code {
     private RegistrationRequest request = new();
@@ -42,6 +48,7 @@
                 throw new Exception("Invalid registration.");
             }
             Snackbar.Add("Successfully Registered", Severity.Success);
+            NavigationManager.NavigateTo("/login");
             StateHasChanged();
         }
         catch (Exception ex) 

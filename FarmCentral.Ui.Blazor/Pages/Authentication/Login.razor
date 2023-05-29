@@ -26,7 +26,7 @@
     {
         if (await authService.AuthenticateAsync(request.Email, request.Password))
         {
-            
+            NavigationManager.NavigateTo("/");
         }
         else
         {
