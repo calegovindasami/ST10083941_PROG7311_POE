@@ -20,18 +20,19 @@
                     <MudTextField Label="Product Name" @bind-Value="farmerProduct.ProductName" For="@(() => farmerProduct.ProductName)"></MudTextField>
                     <MudNumericField Label="Quantity" @bind-Value="farmerProduct.Quantity" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Numbers" For="@(() => farmerProduct.Quantity)" Min="1" Max="100000000"></MudNumericField>
                     <MudNumericField Label="Price Per Unit" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AttachMoney" @bind-Value="farmerProduct.PricePerUnit" Format="F2" For="@(() => farmerProduct.PricePerUnit)" Min="1M" Max="10000000M"></MudNumericField>
-                    <MudDatePicker Label="Transaction Date" @bind-Date="farmerProduct.DateAdded" For="@(() => farmerProduct.DateAdded)" />
+                    <MudDatePicker MaxDate="DateTime.Today" Label="Transaction Date" @bind-Date="farmerProduct.DateAdded" For="@(() => farmerProduct.DateAdded)" />
                     <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Style="font-size: 24px" FullWidth="true" Class="mt-4">Submit</MudButton>
                 </MudStack>
             </EditForm>
         </MudPaper>
 
-        <ViewFarmerProducts UserID="@farmerProduct.FarmerId"></ViewFarmerProducts>
+        <ViewFarmerProducts @ref="tblProducts" UserID="@farmerProduct.FarmerId"></ViewFarmerProducts>
     </MudStack>
 </MudPaper>
 
 @code {
     private FarmerProductDto farmerProduct = new();
+    private ViewFarmerProducts tblProducts;
 
     private async Task OnValidSubmit()
     {
@@ -44,6 +45,7 @@
             result.EnsureSuccessStatusCode();
             Snackbar.Add("Product has been added.", Severity.Success);
             StateHasChanged();
+            await tblProducts.LoadData();
         }
         catch (Exception ex)
         {

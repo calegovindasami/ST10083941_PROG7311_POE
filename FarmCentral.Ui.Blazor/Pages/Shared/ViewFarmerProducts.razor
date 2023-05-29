@@ -42,7 +42,7 @@
         await LoadData();
     }
 
-    private async Task LoadData()
+    public async Task LoadData()
     {
         HttpClient client = ApplicationClient.GetClient();
         var response =await client.GetAsync("api/FarmerProduct/get");
