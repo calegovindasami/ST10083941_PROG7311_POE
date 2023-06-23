@@ -14,6 +14,7 @@ builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IFarmerRepository, FarmerRepository>();
 builder.Services.AddScoped<IFarmerProductRepository, FarmerProductRepository>();
+builder.Services.AddScoped<IProductTypeRepository, ProductTypeRepository>();
 
 var app = builder.Build();
 app.UseCors(x => x

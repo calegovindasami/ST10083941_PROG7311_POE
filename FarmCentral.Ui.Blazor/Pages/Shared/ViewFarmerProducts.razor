@@ -22,6 +22,7 @@
     </ToolBarContent>
     <HeaderContent>
         <MudTh>Product Name</MudTh>
+        <MudTh>Product Type</MudTh>
         <MudTh>Quantity</MudTh>
         <MudTh>Price per Unit</MudTh>
         <MudTh>Transaction Date</MudTh>
@@ -29,6 +30,7 @@
 
     <RowTemplate>
         <MudTd DataLabel="Product Name">@context.ProductName</MudTd>
+        <MudTd DataLabel="Product Type Name">@context.ProductTypeName</MudTd>
         <MudTd DataLabel="Quantity">@context.Quantity</MudTd>
         <MudTd DataLabel="Price per Unit">@context.PricePerUnit.ToString("C2", CultureInfo.CurrentCulture)</MudTd>
         <MudTd DataLabel="Transaction Date">@context.DateAdded!.Value.ToShortDateString()</MudTd>
@@ -103,7 +105,7 @@
     }
 
 
-   
+
     //Code Attribution
     //Author: MudBlazor
     //Taken from:https://mudblazor.com/components/table#tablepager-customization
@@ -117,6 +119,10 @@
             return true;
         }
         if (product.ProductName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+        if (product.ProductTypeName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
         {
             return true;
         }
