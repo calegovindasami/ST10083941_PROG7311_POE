@@ -12,7 +12,9 @@ namespace FarmCentral.Library.Application.Models
 
         public int ProductId { get; set; }
         public string ProductName { get; set; } = null!;
+        public int? ProductTypeId { get; set; }
 
+        public virtual ProductType? ProductType { get; set; }
         public virtual ICollection<FarmerProduct> FarmerProducts { get; set; }
     }
 }

@@ -19,13 +19,12 @@ namespace FarmCentral.Library.Application.Models
         public virtual DbSet<Farmer> Farmers { get; set; } = null!;
         public virtual DbSet<FarmerProduct> FarmerProducts { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
+        public virtual DbSet<ProductType> ProductTypes { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=farm_central_application;Trusted_Connection=True;");
             }
         }
 
@@ -92,13 +91,13 @@ namespace FarmCentral.Library.Application.Models
                     .WithMany(p => p.FarmerProducts)
                     .HasForeignKey(d => d.FarmerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__farmer_pr__farme__5DCAEF64");
+                    .HasConstraintName("FK__farmer_pr__farme__619B8048");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.FarmerProducts)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__farmer_pr__produ__5CD6CB2B");
+                    .HasConstraintName("FK__farmer_pr__produ__60A75C0F");
             });
 
             modelBuilder.Entity<Product>(entity =>
@@ -111,6 +110,25 @@ namespace FarmCentral.Library.Application.Models
                     .HasMaxLength(64)
                     .IsUnicode(false)
                     .HasColumnName("product_name");
+
+                entity.Property(e => e.ProductTypeId).HasColumnName("product_type_id");
+
+                entity.HasOne(d => d.ProductType)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.ProductTypeId)
+                    .HasConstraintName("fk_product_type_id");
+            });
+
+            modelBuilder.Entity<ProductType>(entity =>
+            {
+                entity.ToTable("product_type");
+
+                entity.Property(e => e.ProductTypeId).HasColumnName("product_type_id");
+
+                entity.Property(e => e.ProductTypeName)
+                    .HasMaxLength(64)
+                    .IsUnicode(false)
+                    .HasColumnName("product_type_name");
             });
 
             OnModelCreatingPartial(modelBuilder);

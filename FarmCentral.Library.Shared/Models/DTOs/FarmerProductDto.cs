@@ -22,6 +22,10 @@ namespace FarmCentral.Library.Shared.Models.DTOs
         [Display(Name = "Product Name")]
         public string ProductName { get; set; } = null!;
         [Required]
+        [MaxLength(64)]
+        [Display(Name = "Product Type")]
+        public string ProductType { get; set; } = null!;
+        [Required]
         [Display(Name = "Date Added")]
         public DateTime? DateAdded { get; set; }
     }
